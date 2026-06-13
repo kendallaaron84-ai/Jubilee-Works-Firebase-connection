@@ -1,0 +1,333 @@
+:root {
+    --k-accent: #f97316;
+    --k-text: #ffffff;
+    --k-dim: rgba(255, 255, 255, 0.5); 
+    --k-glass: rgba(255, 255, 255, 0.08); 
+    --k-border: rgba(255, 255, 255, 0.1);
+}
+
+/* 1. MAIN PLAYER CONTAINER (Standard App Takeover) */
+#koba-bloom-root {
+    width: 100vw !important;
+    height: 100dvh !important; /* Forces full screen on mobile browsers */
+    max-width: 100% !important;
+    position: fixed; /* Takes over the screen */
+    top: 0;
+    left: 0;
+    z-index: 99999; /* Overlays theme headers/footers */
+    border-radius: 0;
+    aspect-ratio: auto;
+}
+
+/* Fix Native Fullscreen State (ONLY active when expanded) */
+#koba-bloom-root.is-fullscreen {
+    width: 100vw !important;
+    height: 100vh !important;
+    max-width: none !important;
+    border-radius: 0 !important;
+    border: none !important;
+    background: #000 !important; /* Pitch black for videos */
+}
+
+/* Ensure Video Object Fit is perfect in fullscreen */
+.k-video-element { 
+    width: 100%; 
+    height: auto; 
+    max-height: 70vh !important; 
+    object-fit: contain; 
+    border-radius: 8px; 
+    box-shadow: 0 15px 35px rgba(0,0,0,0.5); 
+}
+
+/* Background Blurs */
+.k-bloom-bg {
+    position: absolute; top: -10%; left: -10%; 
+    width: 120%; height: 120%;
+    background-size: cover; background-position: center;
+    filter: blur(50px) brightness(0.35) saturate(1.2); 
+    z-index: 1;
+}
+
+/* Logo */
+.k-bloom-logo { 
+    position: absolute; 
+    top: 20px; 
+    left: 50%;
+    transform: translateX(-50%); /* Centers logo */
+    height: 22px; 
+    z-index: 100; 
+}
+
+/* 2. INTERFACE LAYOUT */
+.k-bloom-interface {
+    position: absolute; inset: 0; z-index: 10;
+    display: grid; grid-template-columns: 1fr 340px;
+}
+
+.k-bloom-stage { 
+    display: flex; flex-direction: column; 
+    justify-content: center; align-items: center; 
+    padding: 30px; position: relative; min-width: 0;
+}
+
+.k-bloom-cover { 
+    width: 260px; height: 260px; 
+    background-size: cover; background-position: center;
+    border-radius: 8px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.6); 
+    margin-bottom: 35px; border: 1px solid rgba(255,255,255,0.1);
+}
+
+/* 3. CONTROLS */
+.k-bloom-controls { width: 100%; max-width: 550px; display: flex; flex-direction: column; gap: 18px; }
+.k-scrubber { width: 100%; height: 6px; background: rgba(255,255,255,0.15); border-radius: 3px; cursor: pointer; position: relative; }
+.k-progress { height: 100%; background: var(--k-accent); width: 0%; border-radius: 3px; position: relative; box-shadow: 0 0 15px rgba(249, 115, 22, 0.4); }
+.k-time-row { display: flex; justify-content: space-between; font-size: 11px; color: var(--k-dim); font-weight: 500; margin-top: -12px; }
+
+/* --- RESPONSIVE BUTTONS --- */
+.k-buttons {
+    background: rgba(0,0,0,0.4);
+    padding: 15px 25px; 
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap; 
+    gap: 15px; 
+    width: 100%;
+    box-sizing: border-box;
+    transition: all 0.3s ease; 
+}
+
+.k-btn-icon, .k-btn-main {
+    background: transparent !important;
+    border: none !important;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: none;
+    box-shadow: none !important;
+    color: #ffffff; 
+    font-size: 15px; 
+    font-weight: bold;
+}
+
+.k-btn-main {
+    flex-shrink: 0;
+    margin: 0 10px; 
+}
+
+.k-actions { 
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+    gap: 15px; 
+}
+
+/* TABLET VIEW */
+@media (max-width: 1024px) {
+    .k-buttons { padding: 15px 18px; gap: 12px; }
+    .k-btn-main { margin: 0 8px; }
+}
+
+/* MOBILE VIEW */
+@media (max-width: 768px) {
+    .k-buttons { padding: 12px 10px; gap: 8px; border-radius: 10px; }
+    .k-btn-main { margin: 0 4px; }
+    .k-btn-icon svg, .k-btn-main svg { width: 24px !important; height: 24px !important; }
+    .k-btn-main svg { width: 28px !important; height: 28px !important; }
+    .k-btn-icon, .k-btn-main { font-size: 13px; }
+}
+
+/* LIST ITEMS (CHAPTERS) */
+.k-list-item { padding: 14px 18px; display: flex; align-items: center; cursor: pointer; border-bottom: 1px solid var(--k-border); font-size: 13px; color: rgba(255,255,255,0.8); }
+.k-list-item.active { background: rgba(249, 115, 22, 0.1); border-left: 3px solid var(--k-accent); color: white; }
+.k-item-info { margin-left: 12px; }
+
+/* 5. MINI PLAYER */
+.koba-mini-container { width: 100%; min-height: 90px; background: #09090b; border-radius: 12px; padding: 15px 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.25); border: 1px solid #27272a; box-sizing: border-box; font-family: -apple-system, sans-serif; display: flex; align-items: center; }
+.k-mini-shell { display: flex; align-items: center; gap: 20px; width: 100%; }
+.k-mini-cover { width: 60px; height: 60px; border-radius: 8px; background-size: cover; background-position: center; flex-shrink: 0; border: 1px solid var(--k-border); }
+.k-mini-play-btn { width: 50px; height: 50px; border-radius: 50%; background: white; color: black; border:none; cursor: pointer; flex-shrink: 0; display: flex; align-items: center; justify-content: center; padding-left: 3px; transition: transform 0.2s; }
+.k-mini-info { flex: 1; display: flex; flex-direction: column; justify-content: center; min-width: 0; }
+.k-mini-title { color: white; font-size: 15px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 10px; }
+.k-mini-scrubber { width: 100%; height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; cursor: pointer; position: relative; }
+.k-mini-progress { height: 100%; background: var(--k-accent); width: 0%; border-radius: 3px; }
+
+/* 6. READING MODE */
+.k-read-scrollbox { display: none; width: 100%; max-width: 600px; height: 300px; overflow-y: auto; background: rgba(0,0,0,0.3); border: 1px solid var(--k-border); border-radius: 12px; padding: 20px; margin-bottom: 30px; box-sizing: border-box; text-align: center; }
+#koba-bloom-root.k-mode-reading .k-bloom-cover,
+#koba-bloom-root.k-mode-reading .k-video-element { display: none !important; }
+#koba-bloom-root.k-mode-reading .k-read-scrollbox { display: block !important; }
+.k-word { opacity: 0.6; transition: all 0.2s; cursor: pointer; display: inline-block; margin: 0 2px; line-height: 1.6; font-size: 16px; }
+.k-word:hover { opacity: 1; color: white; }
+.k-word.active { opacity: 1; color: var(--k-accent); font-weight: 700; transform: scale(1.1); text-shadow: 0 0 10px rgba(249, 115, 22, 0.4); }
+
+/* --- INVISIBLE SCROLLBARS --- */
+.k-list::-webkit-scrollbar, .k-read-scrollbox::-webkit-scrollbar { 
+    display: none !important; 
+    width: 0 !important; 
+    background: transparent !important; 
+}
+.k-list, .k-read-scrollbox { 
+    -ms-overflow-style: none !important; 
+    scrollbar-width: none !important; 
+}
+
+/* --- CRITICAL FIXES --- */
+
+/* Force Icon Visibility (bloom-style.css) */
+.k-btn-icon svg, 
+.k-btn-main svg {
+    width: 28px !important; 
+    height: 28px !important;
+    fill: #ffffff !important; /* Ensure they aren't dark-on-dark */
+    display: block;
+}
+.k-mini-play-btn svg {
+    width: 24px; height: 24px; display: block; fill: currentColor; margin: 0 auto;
+}
+.k-btn-main svg { width: 32px; height: 32px; }
+.k-mini-play-btn svg { width: 20px; height: 20px; color: black; }
+
+/* MOBILE LAYOUT FIX */
+@media (max-width: 900px) {
+    .k-bloom-interface { 
+        grid-template-columns: 1fr; 
+        grid-template-rows: 1fr auto; 
+    }
+    .k-bloom-cover {
+        width: 50vw; 
+        height: 50vw;
+        max-width: 200px;
+        max-height: 25vh; 
+        margin-bottom: 15px;
+    }
+    .k-bloom-stage {
+        padding: 15px;
+        padding-top: 55px; 
+        justify-content: flex-start;
+    }
+}
+
+/* THEME CLEANUP */
+body.single-koba_publication #sidebar,        
+body.single-koba_publication #secondary,
+body.single-koba_publication .et_pb_widget_area_right { display: none !important; }
+body.single-koba_publication #main-content,
+body.single-koba_publication #left-area { width: 100% !important; max-width: 100% !important; padding: 0 !important; float: none !important; }
+
+/* --- KOBA SECURITY LOCK SCREEN --- */
+.koba-lock-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 50px 20px;
+    background: #fdfdfd;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    margin: 30px auto;
+    max-width: 500px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+}
+
+/* Shrink the massive icon */
+.koba-lock-icon {
+    width: 60px !important;
+    height: 60px !important;
+    margin-bottom: 20px;
+    fill: #b3261e; /* Deep Red */
+}
+
+/* Space out the text */
+.koba-lock-text h3 {
+    margin: 0 0 8px 0 !important;
+    font-size: 22px;
+    font-weight: 600;
+    color: #1a1a1a;
+}
+
+.koba-lock-text p {
+    margin: 0 0 25px 0 !important;
+    font-size: 15px;
+    color: #666;
+}
+
+/* The Buy Button */
+.koba-lock-btn {
+    display: inline-block;
+    padding: 12px 28px;
+    background-color: #f57c00;
+    color: #ffffff !important;
+    text-decoration: none !important;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 15px;
+    transition: background-color 0.2s ease;
+}
+
+.koba-lock-btn:hover {
+    background-color: #e65100;
+}
+
+/* --- DESKTOP SIDEBAR & SCROLL --- */
+@media (min-width: 769px) {
+    .k-bloom-sidebar { 
+        background: rgba(10, 10, 10, 0.6); 
+        backdrop-filter: blur(20px); 
+        border-left: 1px solid var(--k-border); 
+        display: flex; 
+        flex-direction: column;
+        height: 100vh; 
+    }
+
+    .k-list { 
+        display: flex; 
+        flex-direction: column; 
+        flex-grow: 1;
+        max-height: calc(100vh - 60px); /* Sets the boundary needed for scrolling */
+        overflow-y: auto !important; 
+        -webkit-overflow-scrolling: touch; 
+    }
+}
+
+/* --- MOBILE SPECIFIC LAYOUT (MUST BE AT THE VERY BOTTOM OF THE FILE) --- */
+@media (max-width: 768px) {
+    /* 1. Fix the overlapping buttons */
+    .k-actions {
+        width: 100%;
+        margin-top: 10px;
+        padding-top: 15px;
+        border-top: 1px solid rgba(255,255,255,0.1); 
+        border-left: none; 
+        padding-left: 0;
+        margin-left: 0;
+    }
+    
+    .k-btn-icon {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .k-btn-main {
+        width: 60px;
+        height: 60px;
+    }
+
+    /* 2. Fix the locked scrolling chapters */
+    .k-bloom-sidebar {
+        width: 100%; [cite: 210]
+        margin-top: 10px; [cite: 210]
+    }
+
+    .k-list {
+        height: 35vh !important; [cite: 211]
+        max-height: 300px !important; [cite: 212]
+        overflow-y: auto !important; [cite: 213]
+        padding-bottom: 20px; [cite: 214]
+    }
+}
