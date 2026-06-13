@@ -1,0 +1,121 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jubilee Works - WordPress E-Book Suite</title>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              'brand-blue': 'var(--brand-blue)',
+              'brand-amber': 'var(--brand-amber)',
+              'brand-red': 'var(--brand-red)',
+              'brand-blue-light': 'var(--brand-blue-light)',
+              'brand-red-dark': 'var(--brand-red-dark)',
+              'app-bg': 'var(--app-bg)',
+              'app-text': 'var(--app-text)',
+              'app-border': 'var(--app-border)',
+              paper: '#fdfbf7',
+              ink: '#2d2a26',
+            },
+            animation: {
+              'slide-right': 'slideInRight 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+              'slide-left': 'slideInLeft 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+            },
+            keyframes: {
+              slideInRight: {
+                '0%': { transform: 'translateX(50px)', opacity: '0' },
+                '100%': { transform: 'translateX(0)', opacity: '1' },
+              },
+              slideInLeft: {
+                '0%': { transform: 'translateX(-50px)', opacity: '0' },
+                '100%': { transform: 'translateX(0)', opacity: '1' },
+              }
+            }
+          },
+        },
+      }
+    </script>
+    <style>
+      :root {
+        --brand-blue: #1A2B56;
+        --brand-blue-light: #243b75;
+        --brand-amber: #F9B437;
+        --brand-red: #7C2B22;
+        --brand-red-dark: #5e211a;
+        --app-bg: #1A2B56;
+        --app-text: #ffffff;
+        --app-border: rgba(255, 255, 255, 0.1);
+      }
+
+      .light-theme {
+        --brand-blue: #1A2B56;
+        --brand-blue-light: #f3f4f6;
+        --brand-amber: #d97706; 
+        --brand-red: #7C2B22;
+        --brand-red-dark: #5e211a;
+        --app-bg: #ffffff;
+        --app-text: #111827;
+        --app-border: rgba(0, 0, 0, 0.1);
+      }
+
+      /* Content Protection Styles */
+
+      .protected-content {
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+        -webkit-touch-callout: none;
+      }
+
+      .protected-content ::-moz-selection {
+        background: transparent;
+      }
+
+      .protected-content ::selection {
+        background: transparent;
+      }
+
+      .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+
+      .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+
+      body {
+        font-family: 'Inter', sans-serif;
+        background-color: var(--app-bg);
+        color: var(--app-text);
+        transition: background-color 0.3s ease, color 0.3s ease;
+      }
+
+      .font-serif {
+        font-family: 'Merriweather', serif;
+      }
+    </style>
+
+  <script type="importmap">
+{
+  "imports": {
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.30.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.554.0",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0"
+  }
+}
+</script>
+  <script type="module" crossorigin src="/index.js"></script>
+  <link rel="stylesheet" crossorigin href="/index.css">
+</head>
+  <body class="bg-app-bg text-app-text antialiased h-screen overflow-hidden">
+    <div id="root" class="h-full w-full"></div>
+</body>
+</html>
